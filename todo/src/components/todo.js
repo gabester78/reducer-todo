@@ -1,14 +1,16 @@
-import React from "react";
-import todoReducer from "../reducers/todoReducer";
+import React, { useReducer } from "react";
+import { todoList, TodoReducer } from "../reducers/TodoReducer";
 
-const Todo = () => {
-  const [state, dispatch] = useReducer(reducer, todoList);
+const Todo = (props) => {
+  const [state, dispatch] = useReducer(TodoReducer, todoList);
   return (
     <div>
       <ul>
         <li
-          className={`todo${props.data.completed ? " completed" : ""}`}
-          onClick={() => props.changeTodoBoolean(props.data.id)}
+          className={`name${props.data.completed ? " completed" : ""}`}
+          onClick={() => {
+            dispatch({ type: "MARK_TODO", payload: state.id }); // will invoke the reducer with (state, action)
+          }}
         >
           {props.data.name}
         </li>

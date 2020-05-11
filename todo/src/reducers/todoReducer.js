@@ -1,59 +1,43 @@
-import React, { useReducer } from "react";
-
-const todoList = [
+export const todoList = [
   {
-    item: "Learn about reducers",
-    completed: false,
+    name: "Learn about reducers",
     id: 3892987589,
+    completed: false,
   },
 ];
 
-export const todoReducer = (state, action) => {
+export const TodoReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TODO":
-        const newTodo = {
-          name: todoName,
-          id: Date.now(),
-          completed: false,
-        };
-        return {
-          ...state,
-         todoList: [...state.todoList, newTodo] 
-      }
+      const newTodo = {
+        name: action.payload,
+        id: Date.now(),
+        completed: false,
+      };
+      return {
+        ...todoList,
+        todoList: [...state.todoList, newTodo],
+      };
 
     case "MARK_TODO":
-      return { 
-        changeTodoBoolean = (event) => {
-        //set todo list state to contents of function
-        this.setState({
-          //map through current todo list data
-          todoList: this.state.todoList.map((data) => {
-            //compare clicked data to todo list data
-            if (data.id === event) {
-              //if data matches, update todo state with new completed boolean
-              return {
-                ...data,
-                completed: !data.completed,
-              };
-            }
-            //return new todo list data
-            return data;
-          }),
-        });
-      }};
+      return todoList.map((data) => {
+        return data.id === action.payload
+          ? { ...data, completed: !data.completed }
+          : data;
+      });
 
-    case "REMOVE_TODO":
-      return { 
-        clearTodos = (event) => {
-        //prevent browser reset
-        event.preventDefault();
-        //filter through todo list and return any objects
-        //that match variable defined in filter method
-          this.setState({
-            todoList: this.state.todoList.filter((data) => !data.completed),
-          });
-  }};
+    //   case "REMOVE_TODO":
+    //     return {
+    //       clearTodos = (event) => {
+    //       //prevent browser reset
+    //       event.preventDefault();
+    //       //filter through todo list and return any objects
+    //       //that match variable defined in filter method
+    //         this.setState({
+    //           todoList: this.state.todoList.filter((data) => !data.completed),
+    //         });
+    // }};
     default:
       return state;
   }
-}
+};
