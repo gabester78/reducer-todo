@@ -1,6 +1,8 @@
 import React from "react";
+import todoReducer from "../reducers/todoReducer";
 
-const todo = () => {
+const Todo = () => {
+  const [state, dispatch] = useReducer(reducer, todoList);
   return (
     <div>
       <ul>
@@ -14,3 +16,5 @@ const todo = () => {
     </div>
   );
 };
+
+export default Todo;
